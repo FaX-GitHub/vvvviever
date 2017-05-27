@@ -1,0 +1,4 @@
+; indicate this is the root of the project
+root = true
+
+[*.java]
