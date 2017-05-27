@@ -10,11 +10,11 @@ Serve per ricavare la lista degli episodi di **qualcosa** su VVVVID e poi scaric
 Incollate il link nella barra in alto, ad esempio:<br>
  https://www.vvvvid.it/#!show/638/l-attacco-dei-giganti-seconda-stagione
  
-![](.README_images\df133467.png)
+![](https://github.com/FaX-GitHub/vvvviever/blob/master/.README_images/df133467.png)
 Pigiate il tasto "Scarica lista."<br><br>
 
-![](.README_images\0d7a5791.png)
+![](https://github.com/FaX-GitHub/vvvviever/blob/master/.README_images/0d7a5791.png)
 Ora il tasto "Pulisci log, mantieni link."<br><br>
 
-![](.README_images\2bb9a32b.png)<br><br>
+![](https://github.com/FaX-GitHub/vvvviever/blob/master/.README_images/2bb9a32b.png)<br><br>
 Ora utilizzate i link nel programma che usate per scaricare le puntate.
