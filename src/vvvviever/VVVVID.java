@@ -27,6 +27,18 @@ import static vvvviever.Logger.debug;
 
 class VVVVID
 {
+    class EP
+    {
+        int id;
+        int number;
+        String title;
+        String link;
+        Boolean playable;
+        String available;
+    }
+
+    public EP[] episodes;
+
     private static String CONNECTIONIDURL = "https://www.vvvvid.it/user/login";
     private static String LOGINJSON = "{\"action\":\"login\",\"email\":\"\",\"password\":\"\",\"facebookParams\":\"\",\"mobile\":false,\"hls\":false,\"flash\":false,\"isIframe\":false}";
 
@@ -90,7 +102,6 @@ class VVVVID
     void getUrls(String url)
     {
         String fronk;
-        StringBuilder list = new StringBuilder();
 
         if (!debug)
         {
@@ -104,7 +115,6 @@ class VVVVID
             }
         } else
         {
-
             fronk = "{\"result\":\"ok\",\"message\":\"ok\",\"data\":[{\"id\":0,\"show_id\":643,\"season_id\":704,\"show_type\":4,\"number\":1,\"episodes\":[{\"id\":6598,\"season_id\":704,\"video_id\":514196,\"number\":\"01\",\"title\":\"MEMORY in CHILDREN 1/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep01-t.jpg\",\"description\":\"Sagrada Reset - primo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6674,\"season_id\":704,\"video_id\":514527,\"number\":\"02\",\"title\":\"MEMORY in CHILDREN 2/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep02-t.jpg\",\"description\":\"Sagrada Reset - secondo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6711,\"season_id\":704,\"video_id\":514758,\"number\":\"03\",\"title\":\"CAT, GHOST and REVOLUTION SUNDAY 1/2\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep03-t.jpg\",\"description\":\"Sagrada Reset - terzo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6763,\"season_id\":704,\"video_id\":515061,\"number\":\"04\",\"title\":\"CAT, GHOST and REVOLUTION SUNDAY 2/2\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep04-t.jpg\",\"description\":\"Sagrada Reset - quarto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6809,\"season_id\":704,\"video_id\":515280,\"number\":\"05\",\"title\":\"Il mondo-biglia e il candy-resist\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep05-t.jpg\",\"description\":\"Sagrada Reset - quinto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6827,\"season_id\":704,\"video_id\":515593,\"number\":\"06\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 1/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep06-t.jpg\",\"description\":\"Sagrada Reset - sesto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6837,\"season_id\":704,\"video_id\":515885,\"number\":\"07\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 2/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep07-t.jpg\",\"description\":\"Sagrada Reset - settimo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6850,\"season_id\":704,\"video_id\":516241,\"number\":\"08\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 3/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep08-t.jpg\",\"description\":\"Sagrada Reset - ottavo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6851,\"season_id\":704,\"video_id\":-1,\"number\":\"09\",\"title\":\"Episodio 09\",\"expired\":false,\"seen\":false,\"playable\":false,\"availability_date\":\"01 giu 2017\",\"ondemand_type\":3}],\"name\":\"EPISODI\"}]}";
         }
 
@@ -119,42 +129,44 @@ class VVVVID
             {
                 jobject = jobject.getAsJsonArray("data").get(0).getAsJsonObject();
 
-                for (int i = 0; i < jobject.getAsJsonArray("episodes").size(); i++)
-                {
+                episodes = new EP[jobject.getAsJsonArray("episodes").size()];
 
-                    System.out.println("loop : " + i);
+                for (int i = 0; i < episodes.length; i++)
+                {
                     jobject2 = jobject.getAsJsonArray("episodes").get(i).getAsJsonObject();
+
+                    episodes[i] = new EP();
+                    episodes[i].id = jobject2.get("id").getAsInt();
+                    episodes[i].number = jobject2.get("number").getAsInt();
+                    episodes[i].title = jobject2.get("title").getAsString();
+                    episodes[i].playable = jobject2.get("playable").getAsBoolean();
+                    episodes[i].available = (episodes[i].playable?"now":jobject2.get("availability_date").getAsString());
+                    episodes[i].link = episodes[i].playable?url + "/" + jobject2.get("season_id").getAsString() + "/" + jobject2.get("video_id").getAsString() + "/":"";
 
                     if (debug)
                     {
-                        System.out.println(jobject2.get("title").getAsString());
-                        System.out.println(jobject2.get("id").getAsString());
-                        System.out.println(jobject2.get("playable").getAsBoolean());
+                        System.out.println(episodes[i].number);
+                        System.out.println(episodes[i].title);
+                        System.out.println(episodes[i].id);
+                        System.out.println(episodes[i].playable);
+                        System.out.println(episodes[i].available);
                     }
 
-                    list.append(jobject2.get("title").getAsString())
-                            .append(" [ID : ")
-                            .append(jobject2.get("id").getAsString())
+                    StringBuilder list = new StringBuilder();
+                    list.append(episodes[i].title)
+                            .append(" [ep n° : ")
+                            .append(episodes[i].number)
+                            .append("  - ID : ")
+                            .append(episodes[i].id)
                             .append(" - Playable : ")
-                            .append(jobject2.get("playable").getAsBoolean())
-                            .append("]\r\n");
-                    if (!jobject2.get("playable").getAsBoolean())
-                    {
-                        list.append("\tavailability date: ")
-                                .append(jobject2.get("availability_date").getAsString())
-                                .append("\r\n");
-                    } else
-                    {
-                        list.append("\t" + url)
-                                .append("/")
-                                .append(jobject2.get("season_id").getAsString())
-                                .append("/")
-                                .append(jobject2.get("video_id").getAsString())
-                                .append("/")
-                                .append("\r\n");
-                    }
+                            .append(episodes[i].playable)
+                            .append("]\r\n")
+                            .append("\tavailability date: ")
+                            .append(episodes[i].available)
+                            .append("\r\n\t")
+                            .append( episodes[i].link)
+                            .append("\r\n");
                     log(list.toString());
-                    list.delete(0, 9001);
                 }
             } else
             {
@@ -163,13 +175,14 @@ class VVVVID
         } catch (Exception e)
         {
             e.printStackTrace();
-            log("Error while parsing the JSON.");
+            log("Error while parsing the JSON. [" + e.getMessage() + "]");
         }
     }
 
     private String sendGet(String url) throws Exception
     {
         log("sendGet(" + url + ")");
+        // TODO REGEX ?
         url = url.replace("https://www.vvvvid.it/#!show/", "");
         url = url.split("/")[0];
         url = "https://www.vvvvid.it/vvvvid/ondemand/" + url + "/seasons/?conn_id=" + connectionID;
@@ -195,7 +208,6 @@ class VVVVID
         in.close();
 
         //log("Response (JSON):\t" + response.toString());
-
 
         return response.toString();
     }
