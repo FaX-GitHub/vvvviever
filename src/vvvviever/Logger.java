@@ -13,7 +13,6 @@
 package vvvviever;
 
 import javax.swing.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,7 +22,7 @@ import java.util.Date;
 
 public class Logger
 {
-    public static final boolean debug = false;
+    public static final boolean debug = true;
 
     private static JTextPane leLogPanel;
 

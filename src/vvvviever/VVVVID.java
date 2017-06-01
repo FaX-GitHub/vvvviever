@@ -27,17 +27,7 @@ import static vvvviever.Logger.debug;
 
 class VVVVID
 {
-    class EP
-    {
-        int id;
-        int number;
-        String title;
-        String link;
-        Boolean playable;
-        String available;
-    }
-
-    public EP[] episodes;
+    Episode[] episodes;
 
     private static String CONNECTIONIDURL = "https://www.vvvvid.it/user/login";
     private static String LOGINJSON = "{\"action\":\"login\",\"email\":\"\",\"password\":\"\",\"facebookParams\":\"\",\"mobile\":false,\"hls\":false,\"flash\":false,\"isIframe\":false}";
@@ -101,7 +91,9 @@ class VVVVID
 
     void getUrls(String url)
     {
-        String fronk;
+        int show_id = 0;
+        String show_title = "potato";
+        String fronk, jack;
 
         if (!debug)
         {
@@ -116,6 +108,32 @@ class VVVVID
         } else
         {
             fronk = "{\"result\":\"ok\",\"message\":\"ok\",\"data\":[{\"id\":0,\"show_id\":643,\"season_id\":704,\"show_type\":4,\"number\":1,\"episodes\":[{\"id\":6598,\"season_id\":704,\"video_id\":514196,\"number\":\"01\",\"title\":\"MEMORY in CHILDREN 1/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep01-t.jpg\",\"description\":\"Sagrada Reset - primo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6674,\"season_id\":704,\"video_id\":514527,\"number\":\"02\",\"title\":\"MEMORY in CHILDREN 2/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep02-t.jpg\",\"description\":\"Sagrada Reset - secondo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6711,\"season_id\":704,\"video_id\":514758,\"number\":\"03\",\"title\":\"CAT, GHOST and REVOLUTION SUNDAY 1/2\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep03-t.jpg\",\"description\":\"Sagrada Reset - terzo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6763,\"season_id\":704,\"video_id\":515061,\"number\":\"04\",\"title\":\"CAT, GHOST and REVOLUTION SUNDAY 2/2\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep04-t.jpg\",\"description\":\"Sagrada Reset - quarto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6809,\"season_id\":704,\"video_id\":515280,\"number\":\"05\",\"title\":\"Il mondo-biglia e il candy-resist\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep05-t.jpg\",\"description\":\"Sagrada Reset - quinto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6827,\"season_id\":704,\"video_id\":515593,\"number\":\"06\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 1/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep06-t.jpg\",\"description\":\"Sagrada Reset - sesto episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6837,\"season_id\":704,\"video_id\":515885,\"number\":\"07\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 2/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep07-t.jpg\",\"description\":\"Sagrada Reset - settimo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6850,\"season_id\":704,\"video_id\":516241,\"number\":\"08\",\"title\":\"WITCH, PICTURE and RED EYE GIRL 3/3\",\"thumbnail\":\"https://static.vvvvid.it/img/thumbs/Dynit/SagradaReset/SagradaReset_S01Ep08-t.jpg\",\"description\":\"Sagrada Reset - ottavo episodio\",\"expired\":false,\"seen\":false,\"playable\":true,\"ondemand_type\":3},{\"id\":6851,\"season_id\":704,\"video_id\":-1,\"number\":\"09\",\"title\":\"Episodio 09\",\"expired\":false,\"seen\":false,\"playable\":false,\"availability_date\":\"01 giu 2017\",\"ondemand_type\":3}],\"name\":\"EPISODI\"}]}";
+            jack = "{\"result\":\"ok\",\"message\":\"ok\",\"data\":{\"id\":0,\"show_id\":637,\"title\":\"My Hero Academia - Seconda Stagione\",\"thumbnail\":\"https://static.vvvvid.it/img/shows/my_hero_academia_2_logo-t_220.jpg\",\"ondemand_type\":3,\"show_type\":4,\"vod_mode\":1,\"description\":\"Fin dalla più tenera età Izuku Midoriya voleva diventare un supereroe come il suo idolo All Might, simbolo di pace mondiale. La sete di grandi imprese e l'ardore di giustizia lo hanno portato ad allenarsi con lui fino a ricevere l'Unicità \\u201cOne For All\\u201d. Da \\u201cDeku\\u201d imbranato e senza poteri a detentore di una forza esplosiva, Midoriya ora fa parte della \\u201cHero Academy\\u201d, frequentata da coteanei dotati di poteri strabilianti. Durante un allenamento, il gruppo di studenti incontra per la prima volta i nemici \\u201cVillain\\u201d: la seconda stagione riprende da questo punto.\",\"audio_format\":\"Stereo\",\"date_published\":\"2017\",\"video_format\":\"HD\",\"views\":369507,\"background_url\":\"https://static.vvvvid.it/img/shows/my_hero_academia_2_logo-back.jpg\",\"show_type_name\":\"Serie\",\"additional_info\":\"Regia: Kenji Nagasaki | Studio: Bones | Copyright: K. Horikoshi / Shueisha, My Hero Academia Project\",\"director\":\" Kenji Nagasaki \",\"npost\":212,\"show_info_partner\":[{\"name\":\"Animeclick\",\"external_url\":\"http://www.animeclick.it/anime/8963/boku-no-hero-academia\"}],\"show_shares\":92,\"show_likes\":13882}}";
+        }
+
+        try
+        {
+            JsonElement jelement = new JsonParser().parse(jack);
+            System.out.println(jelement);
+            JsonObject jobject = jelement.getAsJsonObject();
+            JsonObject jobject2;
+
+            if (jobject.get("result").getAsString().equals("ok") && jobject.get("message").getAsString().equals("ok"))
+            {
+                jobject2 = jobject.get("data").getAsJsonObject();
+
+                show_id = jobject2.get("show_id").getAsInt();
+                show_title = jobject2.get("title").getAsString();
+
+                    log(show_id + " - " + show_title);
+            } else
+            {
+                log("Error while parsing the JSON [jack].");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            log("Error while parsing the JSON [jack]. [" + e.getMessage() + "]");
         }
 
         try
@@ -129,13 +147,15 @@ class VVVVID
             {
                 jobject = jobject.getAsJsonArray("data").get(0).getAsJsonObject();
 
-                episodes = new EP[jobject.getAsJsonArray("episodes").size()];
+                episodes = new Episode[jobject.getAsJsonArray("episodes").size()];
 
                 for (int i = 0; i < episodes.length; i++)
                 {
                     jobject2 = jobject.getAsJsonArray("episodes").get(i).getAsJsonObject();
 
-                    episodes[i] = new EP();
+                    episodes[i] = new Episode();
+                    episodes[i].serie_id = show_id;
+                    episodes[i].serie_title = show_title;
                     episodes[i].id = jobject2.get("id").getAsInt();
                     episodes[i].number = jobject2.get("number").getAsInt();
                     episodes[i].title = jobject2.get("title").getAsString();
@@ -182,7 +202,6 @@ class VVVVID
     private String sendGet(String url) throws Exception
     {
         log("sendGet(" + url + ")");
-        // TODO REGEX ?
         url = url.replace("https://www.vvvvid.it/#!show/", "");
         url = url.split("/")[0];
         url = "https://www.vvvvid.it/vvvvid/ondemand/" + url + "/seasons/?conn_id=" + connectionID;

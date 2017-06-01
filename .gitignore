@@ -6,6 +6,9 @@
 # Log file
 *.log
 
+# save file
+*.derp
+
 # BlueJ files
 *.ctxt
 
