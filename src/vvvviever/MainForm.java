@@ -178,6 +178,10 @@ public class MainForm
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                // TODO selezione cartella
+                // TODO selezione file salvataggio magari salvarlo con nome serie non con ID
+                // TODO se aperti e ok rinominare files
+
                 try
                 {
                     int asd = 637;
